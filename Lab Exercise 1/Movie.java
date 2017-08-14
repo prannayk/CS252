@@ -25,12 +25,20 @@ public class Movie extends Video implements Comparable {
 		boolean flag2 = m.date.equals(this.date);
 		return flag && flag2;
 	}
-	public int compareTo(Movie M){
+	public int compareTo(Object o){
+		Movie M = (Movie) o;
 		if (this.equals(M)) {return 0;}
 		if (M.name.equals(this.name)) {
 			return M.date.compareTo(this.date);
 		}
 		return M.name.compareTo(this.name);
+	}
+	public static void main(String [] args){
+		System.out.println("hw");
+		Movie m = new Movie();
+		Movie n = new Movie();
+		System.out.println(m == n);
+		System.exit(0); // success
 	}
 }
 

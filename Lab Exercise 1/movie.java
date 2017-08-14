@@ -1,4 +1,3 @@
-// import java.util.Date; 
 import java.util.*;
 
 public class Movie extends Video implements Comparable {

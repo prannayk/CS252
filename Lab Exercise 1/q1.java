@@ -2,7 +2,7 @@
 import java.util.*;
 
 public enum Rating {
-	A, U, UA
+	A, UA, U
 }
 
 public abstract class Video {
@@ -10,13 +10,13 @@ public abstract class Video {
 	Date date; 
 
 	public Video() {
-		this.data = new Date();
+		this.date = new Date();
 		this.play_dur = 0;
 	}
 	public float getDuration() {return this.play_dur;}
 	public Date getDater() {return this.date;}
 	public void setDate(Date date) {this.date = date;}
-	public void setDuration(float duration) {this.play_dur = duration}
+	public void setDuration(float duration) {this.play_dur = duration;}
 }
 
 public class Movie extends Video implements Comparable {
@@ -25,7 +25,7 @@ public class Movie extends Video implements Comparable {
 	public Movie(){
 		super();
 		this.name = new String("");
-		this.rating = A;
+		this.rating = Rating.A;
 	}
 	public void setName(String name){
 		this.name = new String(name);
@@ -34,18 +34,20 @@ public class Movie extends Video implements Comparable {
 		this.rating = rate;
 	}
 	public String getName(){return this.name;}
-	public String getRating(){return this.rating;}
+	public Rating getRating(){return this.rating;}
 	public boolean equals(Object o) {
-		if (!(o instanceof Movie))
+		if (!(o instanceof Movie)){
 			return false;
-		flag = o.name.equals(this.name);
-		flag2 = o.super.date.equals(this.super.date);
+		}
+		Movie m = (Movie) o;
+		boolean flag = m.name.equals(this.name);
+		boolean flag2 = m.date.equals(this.date);
 		return flag && flag2;
 	}
 	public int compareTo(Movie M){
-		if M.equals(this) {return 0;}
-		if M.name.equals(this.name) {
-			return M.super.date.compareTo(this.super.date);
+		if (this.equals(M)) {return 0;}
+		if (M.name.equals(this.name)) {
+			return M.date.compareTo(this.date);
 		}
 		return M.name.compareTo(this.name);
 	}

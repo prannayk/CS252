@@ -1,26 +1,26 @@
 import java.util.*;
 import java.lang.*;
 
-public class Bag<Item> extends Object implements Iterator<Item> {
+public class LinkedBag<Item> extends Object implements Iterator<Item> {
 	int size;
 	Node tail;
     Iterator<Item> iter;
-	public Bag(){
+	public LinkedBag(){
 		this.size = 0;
 		this.tail = null;
         this.iter = null;
 	}
-	static private class Node {
+	public class Node extends Object {
 		Node next;
-		Object content;
-		Node(Object content, Node next){
+		Item content;
+		Node(Item content, Node next){
 			this.content = content;
 			this.next = next;
 		}
 		public Node next(){
 			return this.next;
 		}
-		public Object getElement(){
+		public Item getElement(){
 			return this.content;
 		}
 	}
@@ -34,7 +34,7 @@ public class Bag<Item> extends Object implements Iterator<Item> {
 		return i;
 	}
 	public void add(Item o){
-		Node n = new Node((Object) o, this.tail);
+		Node n = new Node(o, this.tail);
 		this.tail = n;
         this.size++;
 	}
@@ -53,17 +53,17 @@ public class Bag<Item> extends Object implements Iterator<Item> {
     }
     public Item next(){
         if (!this.hasNext()) return null;
-        if (this.iter == null) {
-            this.iter = new BagIterator(this.tail, this.size());
+        if (this.iter == null){
+            this.iter = new BagIterator(this.tail, this.size);
         } else if (!this.iter.hasNext()) {
             this.iter = new BagIterator(this.tail, this.size());
         }
         return this.iter.next();
     }
 	private class BagIterator implements Iterator<Item> {
-		Bag<Item> copy;
+		LinkedBag<Item> copy;
 		public BagIterator(Node tail, int size){
-			copy = new Bag<Item>();
+			copy = new LinkedBag<Item>();
 			Node n = tail;
 			for (int i=0;i<size;i++)
 				copy.add((Item)n.getElement());
@@ -74,12 +74,11 @@ public class Bag<Item> extends Object implements Iterator<Item> {
             if (this.hasNext()) return (Item)copy.returnLast();
             else {return null;}}	
 	};
-    public static void main(String[] args){
-        Bag<Integer> bag = new Bag<Integer>();
-        bag.add(1);
-        bag.add(2);
-        bag.add(3);
-        System.out.println(bag.returnLast());
-        System.out.println(bag.next());
+    static public void main(String[] args){
+        LinkedBag<Integer> lbag = new LinkedBag<Integer>();
+        lbag.add(1);
+        lbag.add(2);
+        System.out.println(lbag.returnLast());
+        System.out.println(lbag.next());
     }
 };

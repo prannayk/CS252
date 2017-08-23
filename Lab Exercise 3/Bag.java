@@ -27,7 +27,7 @@ public class Bag<Item> extends Object implements Iterator<Item> {
 	}
 	public Item returnLast(){
 		Item i = this.tail.getElement;
-		this.tail = this.tail.next()
+		this.tail = this.tail.next();
 	}
 	public void add(Item o){
 		Node n = new Node(o, this.tail);
@@ -37,7 +37,7 @@ public class Bag<Item> extends Object implements Iterator<Item> {
 		return this.size;
 	}
 	public Iterator<Item> iterator(){
-		iter = new BagIterator(this.tail);
+		Iterator<Item> iter = new BagIterator(this.tail);
 		return iter;
 	}
 	public Node tail(){
@@ -45,15 +45,15 @@ public class Bag<Item> extends Object implements Iterator<Item> {
 	}
 	private class BagIterator implements Iterator<Item>{
 		private Bag<Item> copy;
-		public BagIterator(Node tail){
+		public BagIterator(Node tail, int size){
 			copy = new Bag<Item>();
 			Node n = tail;
-			for(int i=0; i< this.size; i++){
+			for(int i=0; i< size; i++){
 				copy.add(n.getElement());
 				n = n.next();
 			}
 		}
 		public boolean hasNext(){return !copy.isEmpty();}
-		public Item next(){return copy.returnLast();}
+		public Item next(){return (Item )copy.returnLast();}
 	}
 };

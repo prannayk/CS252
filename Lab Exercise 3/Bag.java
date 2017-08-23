@@ -38,12 +38,22 @@ public class Bag<Item> extends Object implements Iterator<Item> {
 		return this.size;
 	}
 	public Iterator<Item> iterator(){
-		Iterator<Item> iter = new BagIterator(this.tail);
+		Iterator<Item> iter = new BagIterator(this.tail, this.size());
 		return iter;
 	}
 	public Node tail(){
 		return this.tail;
 	}
-	public boolean hasNext(){return !this.isEmpty();}
-	public Item next(){return (Item)this.returnLast();}
+	private class BagIterator implements Iterator<Item> {
+		Bag<Item> copy;
+		public BagIterator(Node tail, int size){
+			copy = new Bag<Item>();
+			Node n = tail;
+			for (int i=0;i<size;i++)
+				copy.add((Item)tail.getElement());
+		}
+		public boolean hasNext(){return !copy.isEmpty();}
+		public Item next(){return (Item)copy.returnLast();}	
+	};
+	
 };

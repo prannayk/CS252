@@ -1,11 +1,12 @@
-import java.util.*
-import java.lang.*
+import java.util.*;
+import java.lang.*;
 
 public class Bag<Item> extends Object implements Iterator<Item> {
 	int size;
+	Node tail;
 	public Bag(){
 		this.size = 0;
-		this.head = NULL;
+		this.tail = NULL;
 	}
 	static private class Node {
 		Node next;
@@ -17,13 +18,16 @@ public class Bag<Item> extends Object implements Iterator<Item> {
 		public Node next(){
 			return this.next;
 		}
-		public Object getElement(){
+		public Item getElement(){
 			return this.content;
 		}
 	}
-	Node tail;
 	public boolean isEmpty(){
 		return this.size == 0;
+	}
+	public Item returnLast(){
+		Item i = this.tail.getElement;
+		this.tail = this.tail.next()
 	}
 	public void add(Item o){
 		Node n = new Node(o, this.tail);
@@ -31,5 +35,25 @@ public class Bag<Item> extends Object implements Iterator<Item> {
 	}
 	public int size(){
 		return this.size;
+	}
+	public Iterator<Item> iterator(){
+		iter = new BagIterator(this.tail);
+		return iter;
+	}
+	public Node tail(){
+		return this.tail;
+	}
+	private class BagIterator implements Iterator<Item>{
+		private Bag<Item> copy;
+		public BagIterator(Node tail){
+			copy = new Bag<Item>();
+			Node n = tail;
+			for(int i=0; i< this.size; i++){
+				copy.add(n.getElement());
+				n = n.next();
+			}
+		}
+		public boolean hasNext(){return !copy.isEmpty();}
+		public Item next(){return copy.returnLast();}
 	}
 };

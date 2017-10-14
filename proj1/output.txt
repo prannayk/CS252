@@ -1,0 +1,5 @@
+Difficulty: 4476342
+Pattern: 1Khos                                                                 
+Address: 1KhosAA9NKzNMKefKbbrByQkFig4AvcyDF
+Privkey: 5J5ePpAjsNn6qdTqkTv5npeHTKx7co9QiUKEg9RZMxvNFhgwzQc
+
